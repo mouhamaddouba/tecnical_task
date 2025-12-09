@@ -32,6 +32,9 @@ dependencies:
   # HTTP Client
   dio: ^5.9.0
 
+  # Network Connectivity
+  connectivity_plus: ^6.1.0
+
   # Nested widgets
   nested: ^1.0.0
 

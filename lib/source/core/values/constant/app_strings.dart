@@ -16,4 +16,7 @@ abstract class AppStrings {
   static const String requiredUsername = 'Username is required';
   static const String requiredPassword = 'Password is required';
   static const String invalidCredentials = 'Invalid Credentials';
+
+  /// Network
+  static const String noInternetConnection = 'No Internet Connection...';
 }

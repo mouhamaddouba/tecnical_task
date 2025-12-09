@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tecnical_task/source/core/bloc/network/network_bloc.dart';
 import 'package:tecnical_task/source/core/values/constant/app_strings.dart';
 import 'package:tecnical_task/source/core/values/enums/state_app_enum.dart';
 
@@ -8,9 +9,12 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginState.defaultObj()) {
+  final NetworkBloc networkBloc;
+
+  LoginBloc({required this.networkBloc}) : super(LoginState.defaultObj()) {
     on<LoginUsernameChanged>(_onUsernameChanged);
     on<LoginPasswordChanged>(_onPasswordChanged);
+    on<LoginPasswordVisibilityToggled>(_onPasswordVisibilityToggled);
     on<LoginSubmitted>(_onLoginSubmitted);
   }
 
@@ -36,6 +40,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     );
   }
 
+  /// To toggle password visibility
+  void _onPasswordVisibilityToggled(event, emit) {
+    emit(state.copyWith(obscurePassword: !state.obscurePassword));
+  }
+
   /// To check credentials and navigate to content if success
   Future<void> _onLoginSubmitted(event, emit) async {
     // Validate fields
@@ -57,6 +66,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           passwordError: passwordError,
         ),
       );
+      return;
+    }
+
+    // Check network connection
+    networkBloc.add(NetworkCheckRequested());
+
+    // Wait a bit for the network check to complete
+    await Future.delayed(const Duration(milliseconds: 300));
+
+    final networkState = networkBloc.state;
+    if (!networkState.isConnected) {
+      emit(state.copyWith(errorMessage: AppStrings.noInternetConnection));
       return;
     }
 

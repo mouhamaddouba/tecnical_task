@@ -10,6 +10,8 @@ abstract class LoginEvent extends Equatable {
 /// No Params
 class LoginSubmitted extends LoginEvent {}
 
+class LoginPasswordVisibilityToggled extends LoginEvent {}
+
 /// With params
 class LoginUsernameChanged extends LoginEvent {
   final String username;

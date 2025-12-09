@@ -11,7 +11,8 @@ class LoginFormView extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       buildWhen: (previous, current) =>
           previous.usernameError != current.usernameError ||
-          previous.passwordError != current.passwordError,
+          previous.passwordError != current.passwordError ||
+          previous.obscurePassword != current.obscurePassword,
       builder: (context, state) {
         return Column(
           spacing: 16,
@@ -50,7 +51,11 @@ class LoginFormView extends StatelessWidget {
                         ? Icons.visibility_off_outlined
                         : Icons.visibility_outlined,
                   ),
-                  onPressed: () {}, //todo
+                  onPressed: () {
+                    context.read<LoginBloc>().add(
+                      LoginPasswordVisibilityToggled(),
+                    );
+                  },
                 ),
               ),
               onChanged: (password) {

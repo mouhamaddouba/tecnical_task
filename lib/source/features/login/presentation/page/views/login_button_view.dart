@@ -34,24 +34,66 @@ class LoginButtonView extends StatelessWidget {
       builder: (context, state) {
         final isLoading = state.stateApp == StateAppEnum.loading;
 
-        return ElevatedButton(
-          onPressed: isLoading
-              ? null
-              : () {
-                  context.read<LoginBloc>().add(LoginSubmitted());
-                },
-          child: isLoading
-              ? const SizedBox(
-                  height: 24,
-                  width: 24,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.5,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      AppColorsTheme.white,
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOutCubic,
+          child: ElevatedButton(
+            onPressed: isLoading
+                ? null
+                : () {
+                    context.read<LoginBloc>().add(LoginSubmitted());
+                  },
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size(
+                isLoading ? 56 : double.infinity,
+                isLoading ? 56 : 48,
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: isLoading ? 0 : 16,
+                vertical: isLoading ? 0 : 12,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(isLoading ? 28 : 8),
+              ),
+            ),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 400),
+              switchInCurve: Curves.easeInOutCubic,
+              switchOutCurve: Curves.easeInOutCubic,
+              transitionBuilder: (child, animation) {
+                return ScaleTransition(
+                  scale: Tween<double>(begin: 0.0, end: 1.0).animate(
+                    CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.easeInOutCubic,
                     ),
                   ),
-                )
-              : Text(AppStrings.loginButton),
+                  child: FadeTransition(
+                    opacity: Tween<double>(begin: 0.0, end: 1.0).animate(
+                      CurvedAnimation(
+                        parent: animation,
+                        curve: Curves.easeInOutCubic,
+                      ),
+                    ),
+                    child: child,
+                  ),
+                );
+              },
+              child: isLoading
+                  ? const SizedBox(
+                      key: ValueKey('loading'),
+                      height: 24,
+                      width: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.5,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          AppColorsTheme.white,
+                        ),
+                      ),
+                    )
+                  : Text(AppStrings.loginButton, key: const ValueKey('text')),
+            ),
+          ),
         );
       },
     );
