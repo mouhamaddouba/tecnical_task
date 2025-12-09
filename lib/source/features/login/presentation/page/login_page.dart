@@ -14,28 +14,31 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => instance<LoginBloc>(),
-      child: Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppDimensions.paddingOrMargin16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: AppDimensions.paddingOrMargin80),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          body: SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(AppDimensions.paddingOrMargin16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: AppDimensions.paddingOrMargin80),
 
-                /// Welcome Header
-                LoginHeaderView(),
+                  /// Welcome Header
+                  LoginHeaderView(),
 
-                const SizedBox(height: AppDimensions.paddingOrMargin48),
+                  const SizedBox(height: AppDimensions.paddingOrMargin48),
 
-                /// Login Form
-                LoginFormView(),
+                  /// Login Form
+                  LoginFormView(),
 
-                const SizedBox(height: AppDimensions.paddingOrMargin32),
+                  const SizedBox(height: AppDimensions.paddingOrMargin32),
 
-                /// Login Button
-                LoginButtonView(),
-              ],
+                  /// Login Button
+                  LoginButtonView(),
+                ],
+              ),
             ),
           ),
         ),
