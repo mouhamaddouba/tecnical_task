@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tecnical_task/source/core/routes/app_routes.dart';
+import 'package:tecnical_task/source/features/login/presentation/page/login_page.dart';
 
 abstract class AppRouter {
   static final GoRouter router = GoRouter(
@@ -9,7 +9,7 @@ abstract class AppRouter {
       /// Login
       GoRoute(
         path: AppRoutes.login,
-        builder: (context, state) => Container(), // todo
+        builder: (context, state) => const LoginPage(),
       ),
     ],
   );
