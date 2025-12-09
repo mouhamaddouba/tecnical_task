@@ -27,7 +27,11 @@ class LoginFormView extends StatelessWidget {
                 prefixIcon: const Icon(Icons.person_outline),
                 errorText: state.usernameError,
               ),
-              onChanged: (value) {},
+              onChanged: (username) {
+                context.read<LoginBloc>().add(
+                  LoginUsernameChanged(username: username),
+                );
+              },
             ),
 
             /// Password Field
@@ -46,11 +50,17 @@ class LoginFormView extends StatelessWidget {
                         ? Icons.visibility_off_outlined
                         : Icons.visibility_outlined,
                   ),
-                  onPressed: () {},
+                  onPressed: () {}, //todo
                 ),
               ),
-              onChanged: (value) {},
-              onFieldSubmitted: (_) {},
+              onChanged: (password) {
+                context.read<LoginBloc>().add(
+                  LoginPasswordChanged(password: password),
+                );
+              },
+              onFieldSubmitted: (_) {
+                context.read<LoginBloc>().add(LoginSubmitted());
+              },
             ),
           ],
         );

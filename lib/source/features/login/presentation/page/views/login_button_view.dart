@@ -35,7 +35,11 @@ class LoginButtonView extends StatelessWidget {
         final isLoading = state.stateApp == StateAppEnum.loading;
 
         return ElevatedButton(
-          onPressed: isLoading ? null : () {},
+          onPressed: isLoading
+              ? null
+              : () {
+                  context.read<LoginBloc>().add(LoginSubmitted());
+                },
           child: isLoading
               ? const SizedBox(
                   height: 24,
