@@ -32,7 +32,7 @@ class App extends StatelessWidget {
           return BotToastInit()(
             context,
             Directionality(
-              textDirection: TextDirection.rtl,
+              textDirection: TextDirection.ltr,
               child: MediaQuery(
                 data: MediaQuery.of(
                   context,
