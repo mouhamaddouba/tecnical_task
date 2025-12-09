@@ -26,6 +26,7 @@ abstract class AppDimensions {
   static const double iconSize20 = 20.0;
   static const double iconSize24 = 24.0;
   static const double iconSize32 = 32.0;
+  static const double iconSize80 = 80.0;
 
   /// Height
   static const double height48 = 48.0;
