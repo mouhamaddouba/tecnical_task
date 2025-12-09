@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tecnical_task/source/core/routes/app_routes.dart';
 import 'package:tecnical_task/source/core/themes/app_colors_theme.dart';
+import 'package:tecnical_task/source/core/utils/messages_toasts_utils.dart';
 import 'package:tecnical_task/source/core/values/constant/app_strings.dart';
 import 'package:tecnical_task/source/core/values/enums/state_app_enum.dart';
 import 'package:tecnical_task/source/features/login/presentation/bloc/login_bloc.dart';
@@ -18,16 +19,11 @@ class LoginButtonView extends StatelessWidget {
           previous.errorMessage != current.errorMessage,
       listener: (context, state) {
         if (state.navigateToContent) {
+          showSuccessToast(AppStrings.loggingIn);
           context.go(AppRoutes.content);
         }
         if (state.errorMessage != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.errorMessage!),
-              backgroundColor: AppColorsTheme.error,
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
+          showErrorToast(state.errorMessage!);
         }
       },
       buildWhen: (previous, current) => previous.stateApp != current.stateApp,
