@@ -1,0 +1,10 @@
+import 'package:get_it/get_it.dart';
+import 'package:tecnical_task/source/core/services/api_service.dart';
+
+final instance = GetIt.instance;
+
+Future<void> appDependencies() async {
+  /// Services injection
+  instance.registerLazySingleton<ApiService>(() => ApiService());
+  instance<ApiService>().init();
+}
