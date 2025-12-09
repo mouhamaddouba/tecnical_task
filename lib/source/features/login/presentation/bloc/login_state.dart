@@ -1,6 +1,12 @@
 part of 'login_bloc.dart';
 
-@immutable
-sealed class LoginState {}
+class LoginState extends Equatable {
+  const LoginState();
 
-final class LoginInitial extends LoginState {}
+  LoginState copyWith() {
+    return LoginState();
+  }
+
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}

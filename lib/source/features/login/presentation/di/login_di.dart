@@ -1,0 +1,15 @@
+import 'package:tecnical_task/source/core/dependencies/app_binding.dart';
+import 'package:tecnical_task/source/core/dependencies/app_dependencies.dart';
+import 'package:tecnical_task/source/features/login/presentation/bloc/login_bloc.dart';
+
+class LoginDependency extends BaseBinding {
+  @override
+  void dependencies() {
+    if (!instance.isRegistered<LoginBloc>()) {
+      instance.registerFactory<LoginBloc>(() => LoginBloc());
+    }
+  }
+
+  @override
+  void dispose() {}
+}
