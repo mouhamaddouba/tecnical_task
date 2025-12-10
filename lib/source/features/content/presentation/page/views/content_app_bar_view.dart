@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tecnical_task/source/core/values/constant/app_strings.dart';
+import 'package:tecnical_task/source/features/content/presentation/bloc/content_bloc.dart';
 
 class ContentAppBarView extends StatelessWidget implements PreferredSizeWidget {
   const ContentAppBarView({super.key});
@@ -48,7 +50,10 @@ class ContentAppBarView extends StatelessWidget implements PreferredSizeWidget {
                         padding: const EdgeInsets.only(top: 4.0),
                         child: Text(AppStrings.confirm),
                       ),
-                      onPressed: () => Navigator.of(context).pop(true),
+                      onPressed: () {
+                        Navigator.of(context).pop(true);
+                        context.read<ContentBloc>().add(LogoutEvent());
+                      },
                     ),
 
                     /// Button cancel
