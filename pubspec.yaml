@@ -41,6 +41,9 @@ dependencies:
   # Toast
   bot_toast: ^4.1.3
 
+  # Local Storage
+  shared_preferences: ^2.3.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

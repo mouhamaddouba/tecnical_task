@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:tecnical_task/source/core/bloc/network/network_bloc.dart';
+import 'package:tecnical_task/source/core/services/shared_preferences_service.dart';
 import 'package:tecnical_task/source/core/values/constant/app_strings.dart';
 import 'package:tecnical_task/source/core/values/enums/state_app_enum.dart';
 
@@ -10,8 +11,10 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final NetworkBloc networkBloc;
+  final SharedPreferencesService sharedPreferencesService;
 
-  LoginBloc({required this.networkBloc}) : super(LoginState.defaultObj()) {
+  LoginBloc({required this.networkBloc, required this.sharedPreferencesService})
+    : super(LoginState.defaultObj()) {
     on<LoginUsernameChanged>(_onUsernameChanged);
     on<LoginPasswordChanged>(_onPasswordChanged);
     on<LoginPasswordVisibilityToggled>(_onPasswordVisibilityToggled);
@@ -89,6 +92,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     // Check credentials
     if (state.username == 'test' && state.password == '12345') {
+      // Save login state
+      await sharedPreferencesService.setLoggedIn(true);
       // Success
       emit(
         state.copyWith(stateApp: StateAppEnum.success, navigateToContent: true),

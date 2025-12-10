@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tecnical_task/source/core/dependencies/app_dependencies.dart';
@@ -36,7 +38,7 @@ class ContentPage extends StatelessWidget {
                 return AppFailureLayout(
                   title: AppStrings.retry,
                   onPressed: () {
-                    context.read<ContentBloc>().add(ContentRetried());
+                    context.read<ContentBloc>().add(ContentFetched());
                   },
                 );
 
@@ -52,16 +54,21 @@ class ContentPage extends StatelessWidget {
                   );
                 }
 
-                /// loaded state
-                return ListView.builder(
-                  padding: const EdgeInsets.all(
-                    AppDimensions.paddingOrMargin16,
-                  ),
-                  itemCount: state.items.length,
-                  itemBuilder: (context, index) {
-                    final item = state.items[index];
-                    return ContentCardView(item: item);
+                /// loaded state with pull to refresh
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    context.read<ContentBloc>().add(ContentRefreshed());
                   },
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(
+                      AppDimensions.paddingOrMargin16,
+                    ),
+                    itemCount: state.items.length,
+                    itemBuilder: (context, index) {
+                      final item = state.items[index];
+                      return ContentCardView(item: item);
+                    },
+                  ),
                 );
             }
           },

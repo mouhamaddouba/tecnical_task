@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:tecnical_task/source/core/services/shared_preferences_service.dart';
 import 'package:tecnical_task/source/core/values/constant/app_strings.dart';
 import 'package:tecnical_task/source/core/values/enums/state_app_enum.dart';
 import 'package:tecnical_task/source/features/content/data/models/content_item_model.dart';
@@ -10,12 +11,17 @@ part 'content_state.dart';
 
 class ContentBloc extends Bloc<ContentEvent, ContentState> {
   final ContentRepository _contentRepository;
+  final SharedPreferencesService _sharedPreferencesService;
 
-  ContentBloc({required ContentRepository contentRepository})
-    : _contentRepository = contentRepository,
-      super(ContentState.defaultObj()) {
+  ContentBloc({
+    required ContentRepository contentRepository,
+    required SharedPreferencesService sharedPreferencesService,
+  })  : _contentRepository = contentRepository,
+        _sharedPreferencesService = sharedPreferencesService,
+        super(ContentState.defaultObj()) {
     on<ContentFetched>(_onContentFetched);
     on<ContentRetried>(_onContentRetried);
+    on<ContentRefreshed>(_onContentRefreshed);
     on<LogoutEvent>(_onLogoutEvent);
   }
 
@@ -57,8 +63,28 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
     }
   }
 
+  /// Refresh content (pull to refresh)
+  Future<void> _onContentRefreshed(
+    ContentRefreshed event,
+    Emitter<ContentState> emit,
+  ) async {
+    try {
+      final items = await _contentRepository.fetchContent();
+      emit(state.copyWith(stateApp: StateAppEnum.loaded, items: items));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          stateApp: StateAppEnum.failure,
+          errorMessage: AppStrings.networkError,
+        ),
+      );
+    }
+  }
+
   /// Clear session and navigate to login
-  void _onLogoutEvent(event, emit) {
+  Future<void> _onLogoutEvent(event, emit) async {
+    // Clear login state
+    await _sharedPreferencesService.clearLoggedIn();
     emit(state.copyWith(stateApp: StateAppEnum.initial, navigateToLogin: true));
   }
 }
