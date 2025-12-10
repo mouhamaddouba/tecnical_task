@@ -25,8 +25,12 @@ abstract class AppStrings {
   static const String logout = 'Logout';
   static const String sureLogout = 'Are you sure you want to logout?';
   static const String cancel = 'Cancel';
-  static const String confirm = 'Cancel';
+  static const String confirm = 'Confirm';
   static const String retry = 'Retry';
+  static const String noContentAvailable = 'No Content Available';
+  static const String errorLoadingData = 'Retry';
   static const String loadingContent = 'Loading content...';
   static const String errorLoadingContent = 'Failed to load content';
+  static const String networkError =
+      'Network error. Please check your connection.';
 }

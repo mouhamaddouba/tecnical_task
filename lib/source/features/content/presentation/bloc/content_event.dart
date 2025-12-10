@@ -8,4 +8,8 @@ abstract class ContentEvent extends Equatable {
 }
 
 /// No Params
+class ContentFetched extends ContentEvent {}
+
+class ContentRetried extends ContentEvent {}
+
 class LogoutEvent extends ContentEvent {}

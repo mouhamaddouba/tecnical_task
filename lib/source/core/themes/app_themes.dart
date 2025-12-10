@@ -31,16 +31,24 @@ class AppThemes {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusGeometry.circular(10),
+          ),
+          minimumSize: const Size(100, 50),
           backgroundColor: AppColorsTheme.primary,
           foregroundColor: AppColorsTheme.white,
-          minimumSize: const Size(double.infinity, AppDimensions.height56),
+          textStyle: TextStyle(color: AppColorsTheme.white),
+        ),
+      ),
+
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppDimensions.radius12),
+            borderRadius: BorderRadiusGeometry.circular(10),
           ),
-          textStyle: getSemiBoldStyle(
-            fontSize: AppDimensions.fontSize16,
-            color: AppColorsTheme.white,
-          ),
+          minimumSize: const Size(100, 50),
+          side: BorderSide(color: AppColorsTheme.primary),
+          textStyle: TextStyle(color: AppColorsTheme.primary),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
