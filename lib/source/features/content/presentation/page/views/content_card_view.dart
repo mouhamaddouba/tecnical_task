@@ -16,10 +16,13 @@ class ContentCardView extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(AppDimensions.paddingOrMargin16),
         child: Column(
+          spacing: 12,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              spacing: 12,
               children: [
+                /// Circle avatar id
                 CircleAvatar(
                   backgroundColor: AppColorsTheme.primary,
                   radius: 20,
@@ -31,29 +34,31 @@ class ContentCardView extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: AppDimensions.paddingOrMargin12),
+
+                /// Title of item
                 Expanded(
                   child: Text(
                     item.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: getSemiBoldStyle(
                       fontSize: AppDimensions.fontSize16,
                       color: AppColorsTheme.textPrimary,
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: AppDimensions.paddingOrMargin12),
+
+            /// item body
             Text(
               item.body,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
               style: getRegularStyle(
                 fontSize: AppDimensions.fontSize14,
                 color: AppColorsTheme.textSecondary,
               ),
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),

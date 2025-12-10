@@ -14,12 +14,12 @@ abstract class AppRouter {
       final isGoingToLogin = state.matchedLocation == AppRoutes.login;
       final isGoingToContent = state.matchedLocation == AppRoutes.content;
 
-      // If logged in and trying to go to login, redirect to content
+      /// If logged in and trying to go to login, redirect to content
       if (isLoggedIn && isGoingToLogin) {
         return AppRoutes.content;
       }
 
-      // If not logged in and trying to go to content, redirect to login
+      /// If not logged in and trying to go to content, redirect to login
       if (!isLoggedIn && isGoingToContent) {
         return AppRoutes.login;
       }

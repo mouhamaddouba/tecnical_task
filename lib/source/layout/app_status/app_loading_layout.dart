@@ -8,8 +8,8 @@ class AppLoadingLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.all(AppDimensions.paddingOrMargin16),
       itemCount: 10,
+      padding: const EdgeInsets.all(AppDimensions.paddingOrMargin16),
       itemBuilder: (context, index) {
         return const AppCardShimmerLayout();
       },

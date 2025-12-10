@@ -12,6 +12,4 @@ class ContentFetched extends ContentEvent {}
 
 class ContentRetried extends ContentEvent {}
 
-class ContentRefreshed extends ContentEvent {}
-
 class LogoutEvent extends ContentEvent {}

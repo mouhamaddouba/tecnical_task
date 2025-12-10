@@ -16,12 +16,11 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
   ContentBloc({
     required ContentRepository contentRepository,
     required SharedPreferencesService sharedPreferencesService,
-  })  : _contentRepository = contentRepository,
-        _sharedPreferencesService = sharedPreferencesService,
-        super(ContentState.defaultObj()) {
+  }) : _contentRepository = contentRepository,
+       _sharedPreferencesService = sharedPreferencesService,
+       super(ContentState.defaultObj()) {
     on<ContentFetched>(_onContentFetched);
     on<ContentRetried>(_onContentRetried);
-    on<ContentRefreshed>(_onContentRefreshed);
     on<LogoutEvent>(_onLogoutEvent);
   }
 
@@ -50,24 +49,6 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
     // Reset error and retry fetching
     emit(state.copyWith(stateApp: StateAppEnum.loading, errorMessage: null));
 
-    try {
-      final items = await _contentRepository.fetchContent();
-      emit(state.copyWith(stateApp: StateAppEnum.loaded, items: items));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          stateApp: StateAppEnum.failure,
-          errorMessage: AppStrings.networkError,
-        ),
-      );
-    }
-  }
-
-  /// Refresh content (pull to refresh)
-  Future<void> _onContentRefreshed(
-    ContentRefreshed event,
-    Emitter<ContentState> emit,
-  ) async {
     try {
       final items = await _contentRepository.fetchContent();
       emit(state.copyWith(stateApp: StateAppEnum.loaded, items: items));

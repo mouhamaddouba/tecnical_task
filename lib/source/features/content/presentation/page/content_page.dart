@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tecnical_task/source/core/dependencies/app_dependencies.dart';
@@ -49,7 +47,6 @@ class ContentPage extends StatelessWidget {
                 /// empty state
                 if (state.items.isEmpty) {
                   return AppEmptyDataLayout(
-                    image: '',
                     title: AppStrings.noContentAvailable,
                   );
                 }
@@ -57,7 +54,7 @@ class ContentPage extends StatelessWidget {
                 /// loaded state with pull to refresh
                 return RefreshIndicator(
                   onRefresh: () async {
-                    context.read<ContentBloc>().add(ContentRefreshed());
+                    context.read<ContentBloc>().add(ContentFetched());
                   },
                   child: ListView.builder(
                     padding: const EdgeInsets.all(

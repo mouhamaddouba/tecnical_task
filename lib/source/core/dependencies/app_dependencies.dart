@@ -12,6 +12,7 @@ Future<void> appDependencies() async {
   instance.registerLazySingleton<ApiService>(() => ApiService());
   instance<ApiService>().init();
 
+  /// Init Shared preference
   instance.registerLazySingleton<SharedPreferencesService>(
     () => SharedPreferencesService(),
   );
