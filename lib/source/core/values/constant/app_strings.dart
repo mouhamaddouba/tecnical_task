@@ -2,7 +2,7 @@ abstract class AppStrings {
   /// App
   static const String appName = 'Technical Task';
 
-  /// Login Screen
+  /// Login Page
   static const String welcomeTitle = 'Welcome Back';
   static const String welcomeSubtitle = 'Sign in to continue';
   static const String usernameLabel = 'Username';
@@ -19,4 +19,14 @@ abstract class AppStrings {
 
   /// Network
   static const String noInternetConnection = 'No Internet Connection...';
+
+  /// Content Page
+  static const String contentTitle = 'Content';
+  static const String logout = 'Logout';
+  static const String sureLogout = 'Are you sure you want to logout?';
+  static const String cancel = 'Cancel';
+  static const String confirm = 'Cancel';
+  static const String retry = 'Retry';
+  static const String loadingContent = 'Loading content...';
+  static const String errorLoadingContent = 'Failed to load content';
 }
